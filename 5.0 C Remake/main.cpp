@@ -2,8 +2,6 @@
 #include <cmath>
 #include <thread>
 
-#include "Benchmark.h"
-
 // Used for run speed calculations of each wheel
 #define FRONT_LEFT_WHEEL 60
 #define BACK_WHEEL 180
@@ -22,9 +20,9 @@ class Program {
 public:
 	void Run(int8_t calcSpeed, int16_t heading, int8_t calcTurn); // calcSpeed and calcTurn are 0-100, they will be processed into raw speed
 	bool running = false;
-	static void SystemOut();
-	void Benchmark();
+
 private:
+	//Faster Access
 	int16_t θ1;
 	float M1;
 
@@ -52,16 +50,8 @@ void Program::Run(int8_t calcSpeed, int16_t heading, int8_t calcTurn) {
 	M3 += calcTurn * SPEED_CONST;
 }
 
-void Program::Benchmark() {
-	std::thread benchmarking(SystemOut);
-}
-
 int main() { //Entry Point
 	Program* program = new Program;
-	//Benchmark* benchmark = new Benchmark; // Constructor called <- remove this code in release
-
-	program->Benchmark();
-
 
 	program->Run(RUN_SPEED, 120, 0);
 
